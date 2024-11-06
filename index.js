@@ -6,7 +6,7 @@ console.log("Server listening on: ", wss.address());
 
 wss.on("connection", function connection(ws, req) {
   console.log(wss.clients);
-  console.log("Anzahl Clients: ", wss.clients.length());
+  console.log("Anzahl Clients: ", wss.clients.size);
   ws.on("error", console.error);
 
   ws.on("message", function message(data, isBinary) {
