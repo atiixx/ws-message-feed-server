@@ -1,6 +1,6 @@
 import WebSocket from "ws";
 
-const ws = new WebSocket("ws://localhost:8080");
+const ws = new WebSocket("wss://ws-message-feed-server.onrender.com");
 
 ws.on("open", function open() {
   ws.send("This is the node client!!");
