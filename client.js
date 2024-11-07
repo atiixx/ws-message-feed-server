@@ -7,6 +7,7 @@ ws.on("open", function open() {
     JSON.stringify({
       name: "Node Client",
       message: "This is the node client!!",
+      date: new Date().toISOString(),
     })
   );
 });

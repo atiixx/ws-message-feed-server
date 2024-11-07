@@ -5,19 +5,20 @@ export async function getLastMessages() {
     select
     id,
       name,
-      message
+      message,
+      date
     from messages order by id desc limit 100
   `;
   return messages;
 }
 
-export async function insertMessage({ name, message }) {
+export async function insertMessage({ name, message, date }) {
   const messages = await sql`
     insert into messages
-      (name, message)
+      (name, message, date)
     values
-      (${name}, ${message})
-    returning id, name, message
+      (${name}, ${message}, ${date})
+    returning id, name, message, date
   `;
   return messages;
 }
@@ -28,14 +29,17 @@ export async function saveToDB(data) {
     if (
       parsedData.name &&
       parsedData.message &&
-      parsedData.name != "Notification"
+      parsedData.name != "Notification" &&
+      parsedData.date
     ) {
       await insertMessage({
         name: parsedData.name,
         message: parsedData.message,
+        date: parsedData.date,
       });
     }
-  } catch {
+  } catch (e) {
     console.error("Could not insert data into DB: ", data.toString());
+    console.error(e);
   }
 }

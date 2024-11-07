@@ -8,9 +8,13 @@ const wss = new WebSocketServer({ port: 8080 });
 console.log("Server listening on: ", wss.address());
 
 wss.on("connection", function connection(ws) {
-  getLastMessages().then((lastMessages) => {
-    ws.send(JSON.stringify(lastMessages));
-  });
+  try {
+    getLastMessages().then((lastMessages) => {
+      ws.send(JSON.stringify(lastMessages));
+    });
+  } catch (e) {
+    console.error(e);
+  }
   console.log(
     "Client opened connection. Number of clients: ",
     wss.clients.size
@@ -26,7 +30,11 @@ wss.on("connection", function connection(ws) {
   });
 
   ws.on("message", function message(data, isBinary) {
-    saveToDB(data);
+    try {
+      saveToDB(data);
+    } catch (e) {
+      console.error(e);
+    }
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(data, { binary: isBinary });
