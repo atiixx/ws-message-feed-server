@@ -37,7 +37,15 @@ wss.on("connection", function connection(ws) {
     }
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
-        client.send(data, { binary: isBinary });
+        if (client == ws) {
+          const parsedData = JSON.parse(data.toString());
+          if (parsedData.name != "Notification") {
+            parsedData["sameOrigin"] = true;
+            client.send(JSON.stringify(parsedData));
+          }
+        } else {
+          client.send(data, { binary: isBinary });
+        }
       }
     });
   });
