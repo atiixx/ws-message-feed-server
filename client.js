@@ -1,9 +1,14 @@
 import WebSocket from "ws";
 
-const ws = new WebSocket("ws://localhost:8080");
+const ws = new WebSocket(process.env.WS_SERVER_URL);
 
 ws.on("open", function open() {
-  ws.send("This is the node client!!");
+  ws.send(
+    JSON.stringify({
+      name: "Node Client",
+      message: "This is the node client!!",
+    })
+  );
 });
 
 ws.on("message", function message(data) {

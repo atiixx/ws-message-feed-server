@@ -1,10 +1,16 @@
 import WebSocket, { WebSocketServer } from "ws";
+import { getLastMessages, saveToDB } from "./messages.js";
+
+//hosted under: https://dashboard.render.com/
 
 const wss = new WebSocketServer({ port: 8080 });
 
 console.log("Server listening on: ", wss.address());
 
 wss.on("connection", function connection(ws) {
+  getLastMessages().then((lastMessages) => {
+    ws.send(JSON.stringify(lastMessages));
+  });
   console.log(
     "Client opened connection. Number of clients: ",
     wss.clients.size
@@ -20,6 +26,7 @@ wss.on("connection", function connection(ws) {
   });
 
   ws.on("message", function message(data, isBinary) {
+    saveToDB(data);
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(data, { binary: isBinary });

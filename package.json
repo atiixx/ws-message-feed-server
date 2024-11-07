@@ -5,12 +5,15 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node --env-file=.env.development.local index.js",
+    "start-client": "node --env-file=.env.development.local client.js",
+    "start:prod": "node --env-file=.env index.js"
   },
   "author": "Jonas Hauenstein",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "postgres": "^3.4.5",
     "ws": "^8.18.0"
   }
 }
