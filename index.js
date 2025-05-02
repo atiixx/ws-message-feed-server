@@ -2,7 +2,7 @@ import WebSocket, { WebSocketServer } from "ws";
 
 //hosted under: https://dashboard.render.com/
 
-const wss = new WebSocketServer({ port: 3000 });
+const wss = new WebSocketServer({port: 3000, host: '0.0.0.0'});
 
 console.log("Server listening on: ", wss.address());
 

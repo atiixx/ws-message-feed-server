@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  websocket-server:
+    image: ws-message-feed-server
+    container_name: ws-server-container
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+

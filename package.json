@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --env-file=.env.development.local index.js",
-    "start-client": "node --env-file=.env.development.local client.js",
+    "start:client": "node client.js",
     "start:prod": "node --env-file=.env index.js"
   },
   "author": "Jonas Hauenstein",

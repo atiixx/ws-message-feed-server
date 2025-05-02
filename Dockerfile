@@ -13,7 +13,7 @@ RUN npm install --production
 # Copy the rest of the application code
 COPY . .
 
-# Expose port 3000
+# Expose port 443
 EXPOSE 3000
 
 # Run the app using the production start script

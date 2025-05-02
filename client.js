@@ -1,6 +1,6 @@
 import WebSocket from "ws";
 
-const ws = new WebSocket(process.env.WS_SERVER_URL);
+const ws = new WebSocket('ws://localhost:3000');
 
 ws.on("open", function open() {
   ws.send(
